@@ -18,8 +18,14 @@ const weatherURL = `https://api.darksky.net/forecast/f49218caa0b2b52d14dfa45e0bc
 
 axios.get(googleURL)
   .then((data) => {
-    console.log(data.data.results[0].formatted_address);
-    return axios.get(`${weatherURL}${data.data.results[0].geometry.location.lat},${data.data.results[0].geometry.location.lng}`)
+    if (data.data.status === 'OK') {
+      console.log(data.data.results[0].formatted_address);
+      return axios.get(`${weatherURL}${data.data.results[0].geometry.location.lat},${data.data.results[0].geometry.location.lng}`)
+    } else {
+      return new Promise((resolve, reject) => {
+        reject(data.data.status);
+      });
+    }
   })
   .then((data) => {
     console.log(`The temperature is ${data.data.currently.temperature}, and it feels like ${data.data.currently.apparentTemperature}.`);
