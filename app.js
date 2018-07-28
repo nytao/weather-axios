@@ -16,8 +16,6 @@ const argv = yargs
 const googleURL = `https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCM7Dt1ZYTMdDmWI3lxnrQB5qvhTNNMrww&address=${encodeURIComponent(argv.address)}`;
 const weatherURL = `https://api.darksky.net/forecast/f49218caa0b2b52d14dfa45e0bca4302/`;
 
-console.log(googleURL);
-
 axios.get(googleURL)
   .then((data) => {
     console.log(data.data.results[0].formatted_address);
