@@ -22,14 +22,16 @@ axios.get(googleURL)
       console.log(data.data.results[0].formatted_address);
       return axios.get(`${weatherURL}${data.data.results[0].geometry.location.lat},${data.data.results[0].geometry.location.lng}`)
     } else {
-      return new Promise((resolve, reject) => {
-        reject(data.data.status);
-      });
+      throw new Error(data.data.status);
     }
   })
   .then((data) => {
     console.log(`The temperature is ${data.data.currently.temperature}, and it feels like ${data.data.currently.apparentTemperature}.`);
   })
   .catch((err) => {
-    console.log(err);
+    if (err.code === 'ENOTFOUND') {
+      console.log('Unable to connect to the server.');
+    } else {
+      console.log(err.message);
+    }
   });
