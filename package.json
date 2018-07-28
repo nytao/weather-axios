@@ -1,6 +1,6 @@
 {
   "name": "weather-axios",
-  "version": "1.0.333
+  "version": "1.0.3",
   "description": "",
   "main": "app.js",
   "scripts": {
